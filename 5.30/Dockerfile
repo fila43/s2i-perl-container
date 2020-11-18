@@ -16,7 +16,14 @@ Perl is a high-level programming language with roots in C, sed, awk and shell sc
 Perl is good at handling processes and files, and is especially good at handling text. \
 Perl's hallmarks are practicality and efficiency. While it is used to do a lot of \
 different things, Perl's most common applications are system administration utilities \
-and web programming."
+and web programming." \
+     PKG_CONFIG_PATH=/opt/rh/httpd24/root/usr/lib64/pkgconfig \
+     PYTHONPATH=/opt/rh/$NODEJS_SCL/root/usr/lib/python2.7/site-packages \
+     PATH=$PATH:/opt/rh/$NODEJS_SCL/root/usr/bin:/opt/rh/httpd24/root/usr/bin:/opt/rh/httpd24/root/usr/sbin:/opt/app-root/src/bin:/opt/app-root/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/rh/$SCL_NODEJS/root/usr/bin:/opt/rh/rh-perl$PERL_SHORT_VER/root/usr/local/bin:/opt/rh/rh-perl$PERL_SHORT_VER/root/usr/bin:/opt/rh/httpd24/root/usr/bin:/opt/rh/httpd24/root/usr/sbin:/opt/rh-perl526/root/bin \
+     LD_LIBRARY_PATH=/opt/rh/$NODEJS_SCL/root/usr/lib64:/opt/rh/rh-perl$PERL_SHORT_VER/root/usr/lib64:/opt/rh/httpd24/root/usr/lib64 \
+     X_SCLS=rh-perl$PERL_SHORT_VER \
+     LIBRARY_PATH=/opt/rh/httpd24/root/usr/lib64 \
+     MANPATH=/opt/rh/$NODEJS_SCL/root/usr/share/man:/opt/rh/httpd24/root/usr/share/man
 
 LABEL summary="$SUMMARY" \
       description="$DESCRIPTION" \

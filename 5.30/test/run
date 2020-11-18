@@ -21,6 +21,7 @@ test_psgi_variables
 test_warningonstderr
 test_npm
 test_latest_imagestreams
+test_scl_enable
 test_from_dockerfile
 "
 
@@ -372,20 +373,35 @@ function run_all_tests() {
 }
 function test_from_dockerfile(){
         info "Check building using a Dockerfile"
-        ct_test_app_dockerfile $test_dir/examples/from-dockerfile/5.30/Dockerfile 'https://github.com/sclorg/dancer-ex.git' 'Welcome to your Dancer application on OpenShift' app-src 
+        ct_test_app_dockerfile $test_dir/examples/from-dockerfile/Dockerfile 'https://github.com/sclorg/dancer-ex.git' 'Welcome to your Dancer application on OpenShift' app-src
         t1=$?
         if [ "$t1" == "0" ]; then
                 echo "test 1 from_dockerfile passed";
         fi;
 
         info "Check building using a Dockerfile.s2i"
-        ct_test_app_dockerfile $test_dir/examples/from-dockerfile/5.30/Dockerfile.s2i 'https://github.com/sclorg/dancer-ex.git' 'Welcome to your Dancer application on OpenShift' app-src 
+        ct_test_app_dockerfile $test_dir/examples/from-dockerfile/Dockerfile.s2i 'https://github.com/sclorg/dancer-ex.git' 'Welcome to your Dancer application on OpenShift' app-src
         t2=$?
         if [[ "$t2" == "0" ]];then
                 echo "test 2 from_dockerfile passed";
         fi;
 
         check_result $t1
+}
+function test_scl_enable(){
+if [ "$OS" == "rhel7" ] || [ "$OS" == "centos7" ]; then
+￼  # autocleanup only enabled here as only the following tests so far use it
+   CID_FILE_DIR=$(mktemp -d)
+   ct_enable_cleanup
+￼
+   info "Testing variable presence during \`docker exec\`"
+   ct_check_exec_env_vars
+   check_result $?
+￼
+   info "Checking if all scl variables are defined in Dockerfile"
+   ct_check_scl_enable_vars
+   check_result $?
+fi
 }
 
 # Run the chosen tests
