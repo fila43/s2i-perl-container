@@ -1,6 +1,5 @@
 FROM ubi8/perl-526
 
-USER 0
 # Add application sources
 ADD app-src \.
 
